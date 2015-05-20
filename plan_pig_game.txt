@@ -19,10 +19,12 @@ Responsibilities:
       End turn on a 1, without adding to score
       Track turn score
       Decide to roll again or hold
+      Signal end of a turn to Game
 
 
   Game:
     Decide behavior based on number of players
+    Tell player to start a new turn
     Track number of turns taken
     Collect score of player(s)
     Declare a winner if mulitplayer
