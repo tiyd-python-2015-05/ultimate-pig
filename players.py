@@ -12,7 +12,7 @@ class Player:
         self.losses = 0
 
     def turn(self):
-        num = self.roll()
+        num = random.randint(1, 6)
 
         if num == 1:
             return self.score
@@ -20,9 +20,6 @@ class Player:
             self.score += num
 
         return self.score
-
-    def roll(self):
-        return random.randint(1, 7)
 
     def win(self):
         self.wins += 1
@@ -38,19 +35,23 @@ class Player:
 
 
 class SmartPlayer(Player):
-    def __init__(self, name, brain, turn_lim=False):
+    def __init__(self, name, brain, score_lim=False, turn_lim=False):
         super().__init__(name)
         self.brain = brain
         self.turn_lim = turn_lim
+        self.score_lim = score_lim
+        self.current_turn = 0
 
     def turn(self):
         """
         uses the brain to roll
         with a strategy
         """
+        self.current_turn += 1
+
         if self.turn_lim:
-            self.score += self.brain(self.turn_lim)
+            self.score += self.brain(self.score)
         else:
-            self.score += self.brain()
+            self.score += self.brain(self.score)
 
         return self.score

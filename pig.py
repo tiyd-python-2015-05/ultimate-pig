@@ -1,5 +1,7 @@
 import random
 from operator import itemgetter
+from players import Player, SmartPlayer
+from strategies import simple_threshold, complex_threshold
 
 
 class Pig:
@@ -42,8 +44,9 @@ class Pig:
         then a new current player
         is set
         """
-        new_val = self.current_player.turn()
-        self.scores[self.current_player.name] = new_val
+        player = self.players[self.current_player]
+        new_val = player.turn()
+        self.scores[player.name] = new_val
         self.switch_players()
         self.current_turn += 1
 
@@ -52,12 +55,11 @@ class Pig:
         updates the current player
         cycling through a list of players
         """
-        if self.players.index(self.current_player) == len(self.players) - 1:
-            self.current_player = self.players[0]
+        if self.current_player == len(self.players) - 1:
+            self.current_player = 0
 
         else:
-            self.current_player = \
-                self.players[self.players.index(self.current_player) + 1]
+            self.current_player += 1
 
     def new_game(self):
         """
@@ -78,14 +80,12 @@ class Pig:
         if self.score_lim == False:
             if self.turn_lim == self.current_turn:
                 name = max(self.scores, key=itemgetter(1))
-                self.tell(name)
                 return name
 
             return False
         else:
             name = max(self.scores, key=itemgetter(1))
             if self.score_lim <= self.scores[name]:
-                self.tell(name)
                 return name
 
             return False
@@ -101,3 +101,46 @@ class Pig:
                 player.win()
             else:
                 player.lose()
+
+    def loop(self):
+        while not self.check_win():
+            self.turn()
+
+        self.tell(self.check_win())
+
+    def clear_players(self):
+        self.players = []
+        self.scores = {}
+
+    def create_player(self, *what):
+        """
+        Adds a preset player type
+        to the game.  Choices
+        are simple, complex, and random
+        """
+
+        if what[0] == "complex":
+            if len(what) == 2:
+                thresh = what[1]
+                self.players.append(SmartPlayer("Jean-Luc Picard",
+                                    complex_threshold(thresh), self.score_lim))
+            else:
+                self.players.append(SmartPlayer("Jean-Luc Picard",
+                                    complex_threshold(), self.score_lim))
+
+        if what[0] == "simple":
+            if len(what) == 2:
+                thresh = what[1]
+                self.players.append(SmartPlayer("Gilgamesh",
+                                                simple_threshold(thresh)))
+            else:
+                self.players.append(SmartPlayer("Gilgamesh",
+                                                simple_threshold()))
+
+        if what[0] == "random":
+            self.players.append(Player("Random"))
+
+        self.current_player = self.players[0]
+
+        for player in self.players:
+            self.scores[player.name] = 0

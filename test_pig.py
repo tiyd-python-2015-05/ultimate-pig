@@ -67,8 +67,6 @@ def test_win_new_game():
     pig.scores["Johan"] = 1
 
     assert pig.check_win() == "Johan"
-    assert player.wins == 1
-
     pig.new_game()
 
     assert player.score == 0
@@ -113,6 +111,24 @@ def test_smart_player_brain():
     for idx in range(10):
         assert player2.turn() == idx + 1
         assert player2.score == idx + 1
+
+    def test_tell():
+        pig = Pig(score_lim=1)
+        player = Player("Gilgamesh")
+        pig.set_players(player)
+
+        pig.tell("Gilgamesh")
+
+        assert player.wins == 1
+
+def test_loop():
+    pig = Pig(score_lim=1)
+    player = Player("Gilgamesh")
+    pig.set_players(player)
+    pig.loop()
+
+    assert pig.check_win() == "Gilgamesh"
+    assert player.wins == 1
 
 if __name__ == '__main__':
     nose.main()
