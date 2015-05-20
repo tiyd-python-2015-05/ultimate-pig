@@ -122,14 +122,14 @@ class Pig:
         are simple, complex, and random
         """
 
-        if len(what) -  what.count("Random") != len(thresh):
+        if len(what) -  what.count("random") != len(thresh):
             raise KeyError("number of items requiring a threshold does \
                             not match number of thresholds")
 
         new_player = []
 
-        while "Random" in what:
-            what.pop("Random")
+        while "random" in what:
+            what.remove("random")
             new_player.append(Player("Random {}".format(random.randint(0,115))))
 
         for idx in range(len(what)):
