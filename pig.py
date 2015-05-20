@@ -15,9 +15,9 @@ class Pig:
         """
         if not turn_lim and not score_lim or (turn_lim and score_lim):
             raise KeyError("Pig must have turn or score limit")
+
         self.turn_lim = turn_lim
-        if not turn_lim:
-            self.score_lim = score_lim
+        self.score_lim = score_lim
 
         self.players = []
         self.current_player = None
@@ -55,8 +55,9 @@ class Pig:
         if self.players.index(self.current_player) == len(self.players) - 1:
             self.current_player = self.players[0]
 
-        self.current_player = \
-            self.players[self.players.index(self.current_player) + 1]
+        else:
+            self.current_player = \
+                self.players[self.players.index(self.current_player) + 1]
 
     def new_game(self):
         """
@@ -76,7 +77,7 @@ class Pig:
         """
         if self.score_lim == False:
             if self.turn_lim == self.current_turn:
-                max(scores, key=itemgetter[1])
+                name = max(self.scores, key=itemgetter(1))
                 self.tell(name)
                 return name
 
@@ -98,20 +99,5 @@ class Pig:
         for player in self.players:
             if player.name == name:
                 player.win()
-
-
-class Player:
-    def __init__(self, name):
-        self.name = name
-        self.wins = 0
-        self.score = 0
-
-    def turn(self):
-        self.score += random.randint(0, 100)
-        return self.score
-
-    def win(self):
-        self.wins += 1
-
-    def new_game(self):
-        self.score = 0
+            else:
+                player.lose()

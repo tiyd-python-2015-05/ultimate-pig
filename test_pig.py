@@ -1,7 +1,8 @@
 import nose
 from nose.tools import raises
 
-from pig import Pig, Player
+from pig import Pig
+from players import Player, SmartPlayer
 
 def test_new_pig():
     pig = Pig(turn_lim=6)
@@ -71,6 +72,47 @@ def test_win_new_game():
     pig.new_game()
 
     assert player.score == 0
+
+def test_turn_win():
+    pig = Pig(turn_lim=6)
+    player = Player("Johan")
+    player2 = Player("Gilgamesh")
+    pig.set_players(player, player2)
+
+    for _ in range(6):
+        pig.turn()
+
+    assert pig.check_win() in ["Johan", "Gilgamesh"]
+
+def test_one_player():
+    pig = Pig(score_lim=1)
+    player = Player("Gilgamesh")
+    pig.set_players(player)
+
+    for _ in range(10):
+        pig.turn()
+
+    assert pig.check_win() == "Gilgamesh"
+
+
+def test_smart_player_brain():
+    def brain():
+        return 0
+
+    player = SmartPlayer("zero", brain)
+
+    assert player.turn() == 0
+    assert player.score == 0
+
+
+    def brain2():
+        return 1
+
+    player2 = SmartPlayer("one", brain2)
+
+    for idx in range(10):
+        assert player2.turn() == idx + 1
+        assert player2.score == idx + 1
 
 if __name__ == '__main__':
     nose.main()
