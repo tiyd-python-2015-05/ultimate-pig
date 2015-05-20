@@ -46,13 +46,13 @@ class PigPlayer():
         self.turn_score = 0
         self.turn_over = True
 
-    def decide(self):
+    def decide(self, num_turns=1):
         """
         Use a strategy to determine whether to roll or hold
-        Basic strategy is to hold after 1 turn
+        Basic strategy is to hold after num_turns turns
         More advanced strategies are incorporated into subclasses
         """
-        if self.num_rolls == 3:
+        if self.num_rolls == num_turns:
             self.hold()
         else:
             self.do_roll()
