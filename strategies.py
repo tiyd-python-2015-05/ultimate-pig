@@ -31,11 +31,7 @@ def complex_threshold(k=.5, score_lim=False, turn_lim=False):
 
         nonlocal k
 
-        thresh = k
-
-        if score_lim - score < 20:
-
-            thresh = k + k/(score_lim - score + 1)
+        thresh = k - k/(score_lim - score + 1)
 
         roll = random.randint(1, 6)
         num_rolls = 1
