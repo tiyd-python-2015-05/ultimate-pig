@@ -59,5 +59,29 @@ def test_player_score_increases_turn_over_on_hold():
     assert player.score == 3
     assert player.turn_over == True
 
-    # self.score = 0
-    # self.turn_over = False
+def test_basic_player_holds_after_3():
+    player = make_player_3_die()
+    player.decide()
+    assert player.num_rolls == 1
+    assert player.turn_over == False
+    assert player.turn_score == 3
+    assert player.score == 0
+
+    player.decide()
+    assert player.num_rolls == 2
+    assert player.turn_over == False
+    assert player.turn_score == 6
+    assert player.score == 0
+
+    player.decide()
+    assert player.num_rolls == 3
+    assert player.turn_over == False
+    assert player.turn_score == 9
+    assert player.score == 0
+
+
+    player.decide()
+    assert player.num_rolls == 3
+    assert player.turn_over == True
+    assert player.turn_score == 0
+    assert player.score == 9
