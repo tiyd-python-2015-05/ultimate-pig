@@ -20,6 +20,16 @@ class Player:
 
 
     def take_turn(self):
+        while self.go_again == True
+            result = self.roll()
+            if result == 1:
+                self.go_again = False
+                self.tally = 0
+            else:
+                self.add_tally(result)
+                self.go_again = self.roll_again_logic()
+        self.add_score()
+        self.reset_after_turn()
         self.turn += 1
 
 
@@ -28,4 +38,17 @@ class Player:
 
     def roll_again_logic(self):
         return False
+
+    def reset_after_turn(self):
+        self.roll_count = 0
+        self.tally = 0
+        self.go_again = True
+
+    def game(self):
+        while self.turn > 7:
+            self.take_turn()
+        return self.score
+
+
+
 
