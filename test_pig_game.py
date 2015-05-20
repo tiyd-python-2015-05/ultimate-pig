@@ -35,3 +35,8 @@ def test_roll_increases_roll_count():
 def test_player_roll_again_logic():
     player1 = Player()
     assert not player1.roll_again_logic()
+
+def game_with_player_rolling_once_only_per_turn_returns_score_between_0_and_42():
+    player1 = Player()
+    result = player1.game()
+    assert 0 <= result <= 42
