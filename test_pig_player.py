@@ -98,3 +98,11 @@ def test_basic_player_holds_after_3():
     assert player.turn_over == True
     assert player.turn_score == 0
     assert player.score == 9
+
+def test_basic_player_holds_after_1_using_take_turns():
+    player = make_player_3_die()
+    player.take_turn()
+    assert player.num_rolls == 1
+    assert player.turn_over == True
+    assert player.turn_score == 0
+    assert player.score == 3

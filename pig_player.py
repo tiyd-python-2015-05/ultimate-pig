@@ -58,6 +58,10 @@ class PigPlayer():
             self.do_roll()
 
     def take_turn(self):
-        """The main loop for a single turn from start to finish"""
+        """
+        The main loop for a single turn from start to finish
+        Return False when the player is done
+        """
         # remember to set turn_over to True initially
-        pass
+        while not self.turn_over:
+            self.decide()
