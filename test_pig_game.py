@@ -8,8 +8,9 @@ Responsibilities:
     Tell player to start a new turn
     Track number of turns taken
     Collect score of player(s)
-    Declare a winner if mulitplayer
-    Declare game over if single player after n turns
+    Declare a winner if multiplayer
+    X Declare game over if single player after n turns
+        (Not needed, just stop asking for player turns)
 """
 
 def test_pig_solitaire_creation():
