@@ -1,4 +1,5 @@
 from pig_player import PigPlayer, Die
+
 """
 Responsibilities:
       Track total score
@@ -99,10 +100,18 @@ def test_basic_player_holds_after_3():
     assert player.turn_score == 0
     assert player.score == 9
 
-def test_basic_player_holds_after_1_using_take_turns():
+def test_basic_player_holds_after_1_using_take_turns_and_returns_score():
     player = make_player_3_die()
-    player.take_turn()
+    score = player.take_turn()
     assert player.num_rolls == 1
     assert player.turn_over == True
     assert player.turn_score == 0
     assert player.score == 3
+    assert score == 3
+
+    score = player.take_turn()
+    assert player.num_rolls == 1
+    assert player.turn_over == True
+    assert player.turn_score == 0
+    assert player.score == 6
+    assert score == 6

@@ -17,14 +17,15 @@ class PigPlayer():
           End turn on a 1, without adding to score
           Track turn score
           Decide to roll again or hold
-          Signal end of a turn to Game
+          Signal end of a turn to Game, return player score
     """
-    def __init__(self, die):
+    def __init__(self, die, verbose=False):
         self.score = 0
         self.turn_score = 0
         self.die = die
         self.turn_over = False
         self.num_rolls = 0
+        self.verbose = verbose
 
     def roll_die(self):
         return self.die.roll()
@@ -32,6 +33,8 @@ class PigPlayer():
     def do_roll(self):
         """Roll die and add roll points/set turn_over depending on result"""
         roll_points = self.roll_die()
+        if self.verbose:
+            print('Rolled a {}!'.format(roll_points))
         if roll_points == 1:
             self.turn_over = True
             roll_points == 0
@@ -42,6 +45,8 @@ class PigPlayer():
 
     def hold(self):
         """Stop rolling, collect points, end the turn"""
+        if self.verbose:
+            print("Holding with score: {} + turn_score: {}".format(self.score, self.turn_score))
         self.score += self.turn_score
         self.turn_score = 0
         self.turn_over = True
@@ -60,8 +65,11 @@ class PigPlayer():
     def take_turn(self):
         """
         The main loop for a single turn from start to finish
-        Return False when the player is done
+        Return player score when the player is done
+        turn_over is reset to False and num_rolls to 0 whenever this is called
         """
-        # remember to set turn_over to True initially
+        self.turn_over = False
+        self.num_rolls = 0
         while not self.turn_over:
             self.decide()
+        return self.score
