@@ -41,6 +41,7 @@ class Player:
                 self.update_score()
                 current_turn += 1
             else:
+                self.total_score = 0
                 current_turn += 1
             #print("This is turn {} with score {}".format(current_turn, self.total_score))
         return round(self.total_score/rounds,2)
@@ -57,6 +58,7 @@ class OptimalPlayer(Player):
                     #print("Roll {}: Win".format(i))
                 else:
                     #print("Roll {}: Lose".format(i))
+                    self.total_score = 0
                     break
             self.current_turn += 1
         return round(self.total_score/rounds,2)
@@ -73,6 +75,7 @@ class OptimalSolitairePlayer(Player):
                     #print("Roll {}: Win".format(i))
                 else:
                     #print("Roll {}: Lose".format(i))
+                    self.total_score = 0
                     break
             self.current_turn += 1
         return round(self.total_score/rounds,2)
