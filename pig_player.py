@@ -27,6 +27,9 @@ class PigPlayer():
         self.num_rolls = 0
         self.verbose = verbose
 
+    def __repr__(self):
+        return(str(type(self).__name__) + ': ' + str(self.score))
+
     def roll_die(self):
         return self.die.roll()
 
