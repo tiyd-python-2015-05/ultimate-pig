@@ -1,0 +1,35 @@
+A *Player* _rolls a six-sided die_, _ending the turn_ if the result is 1,
+with no _points earned_ for that _turn_.
+Otherwise, the player _decides_ whether to roll again or to _hold_.
+On holding, the sum of all rolls for that turn are _added to the players score_.
+If number of players == 1, the *Game* is over after 7 turns, with the goal of
+maximizing the score.
+If number of players > 1, the Game is when any player's score is >= 100, making
+that player _win the game_.
+Run a *Simulation* with *Players with different strategies* and record the success rate
+  (max score or %wins against others)
+
+Decisions/Assumptions:
+  Two different versions of game or a _single one_ that is based on number of players?
+
+Responsibilities:
+  Player:
+      Track total score
+      When prompted to start the turn, roll the die
+      End turn on a 1, without adding to score
+      Track turn score
+      Decide to roll again or hold
+      Signal end of a turn to Game
+
+
+  Game:
+    Decide behavior based on number of players
+    Tell player to start a new turn
+    Track number of turns taken
+    Collect score of player(s)
+    Declare a winner if mulitplayer
+    Declare game over if single player after n turns
+
+  Simulation
+    Run a number of games with a number of players
+    Collect statistics on win percentage (multiplayer) or max score(single player)
